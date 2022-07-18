@@ -13,15 +13,16 @@
 #define SIZE_BUFFER_BYTE 32
 #define OUTPUT_NAME "result.txt"
 
+//A helper structure for storing variables used by I/O functions
 typedef struct 
 {
     int fd;
-	char * str;
-    char * buffer;  
-    int byte_size;
-    int byte_size_bf;
-    int buffer_rate;
-    int size_rate;
+	char * str; //the buffer will be filled with this string
+    char * buffer; //I/O operations will be applied to the buffer for the file
+    int byte_size; //output file size in bytes
+    int byte_size_bf; //buffer size in bytes
+    int buffer_rate; //ratio between the size in bytes of ->str and buffer, or how many times ->str needs to be copied to fill the buffer
+    int size_rate; //ratio between the size in bytes of the buffer and the output file, or how many times the buffer needs to be copied to fill the output file
     clock_t start;
     clock_t end;
 } Descriptor;
@@ -155,7 +156,7 @@ int main(int argc, char *argv[])
 {
     int i, j, p_i, p_j;
 
-    for(i = 0; i < 3; i++)
+    for(i = 0; i < 8; i++)
     {   
         p_i = (int) pow(2, i);
         printf("\n--------------------------------------------------------\n");
